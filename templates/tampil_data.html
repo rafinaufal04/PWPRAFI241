@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Users</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="bg-light">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3 col-lg-2 px-0 bg-white sidebar position-fixed">
+                <div class="p-3">
+                    <h4 class="text-center mb-4">Admin Panel</h4>
+                    <div class="nav flex-column">
+                        <a class="nav-link active" href="#">
+                            <i class="fas fa-users me-2"></i> Data Users
+                        </a>
+                        <form action="{{ url_for('main.logout') }}" method="post" class="mt-auto">
+                            <button type="submit" class="nav-link text-danger border-0 bg-transparent w-100 text-start">
+                                <i class="fas fa-sign-out-alt me-2"></i> Logout
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-9 col-lg-10 ms-auto p-4">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2><i class="fas fa-users me-2"></i>Data Users</h2>
+                    {% if current_user.role == 'admin' %}
+                    <div class="search-box">
+                        <form class="d-flex" method="GET">
+                            <input type="text" name="query" class="form-control me-2" placeholder="Search users..." value="{{ query }}">
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </form>
+                    </div>
+                    {% endif %}
+                </div>
+
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
+                <div class="table-container p-3">
+                    <table class="table table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th>No</th>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                {% if current_user.role == 'admin' %}
+                                <th>Actions</th>
+                                {% endif %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in users_pagination.items %}
+                            <tr>
+                                <td>{{ loop.index + ((users_pagination.page - 1) * users_pagination.per_page) }}</td>
+                                <td>{{ user.username }}</td>
+                                <td>{{ user.email }}</td>
+                                <td>
+                                    <span class="badge bg-{{ 'primary' if user.role == 'admin' else 'secondary' }}">
+                                        {{ user.role }}
+                                    </span>
+                                </td>
+                                {% if current_user.role == 'admin' %}
+                                <td>
+                                    <a href="{{ url_for('main.edit_user', user_id=user.id) }}" class="btn btn-warning btn-action">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <button type="button" class="btn btn-danger btn-action" data-bs-toggle="modal" data-bs-target="#deleteModal{{ user.id }}">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                                {% endif %}
+                            </tr>
+
+                            {% if current_user.role == 'admin' %}
+                            <!-- Delete Modal -->
+                            <div class="modal fade" id="deleteModal{{ user.id }}" tabindex="-1">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Konfirmasi Hapus</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Apakah Anda yakin ingin menghapus user <strong>{{ user.username }}</strong>?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                            <form action="{{ url_for('main.delete_user', user_id=user.id) }}" method="POST" class="d-inline">
+                                                <button type="submit" class="btn btn-danger">Hapus</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                    <!-- Pagination hanya ditampilkan untuk admin -->
+                    {% if current_user.role == 'admin' and users_pagination.pages > 1 %}
+                    <nav aria-label="Page navigation" class="mt-4">
+                        <ul class="pagination justify-content-center">
+                            {% for page in users_pagination.iter_pages() %}
+                                {% if page %}
+                                    <li class="page-item {{ 'active' if page == users_pagination.page else '' }}">
+                                        <a class="page-link" href="{{ url_for('main.tampil_data', page=page, query=query) }}">
+                                            {{ page }}
+                                        </a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item disabled">
+                                        <span class="page-link">...</span>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </nav>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

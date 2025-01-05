@@ -1,0 +1,186 @@
+/* Hero Section */
+.hero-section {
+  background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://source.unsplash.com/random/1920x1080/?technology');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+}
+
+/* Custom Button Styles */
+.btn-custom {
+  padding: 1rem 2.5rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+
+.btn-custom:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+/* Custom Text Styles */
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.hero-description {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+}
+
+/* Register Form Styles */
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #8490a2;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* Sidebar Styles */
+.sidebar {
+  min-height: 100vh;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+}
+
+.nav-link {
+  color: #333;
+  padding: 12px 20px;
+  border-radius: 8px;
+  margin-bottom: 5px;
+  transition: all 0.3s;
+}
+
+.nav-link:hover, 
+.nav-link.active {
+  background-color: #0d6efd;
+  color: white;
+}
+
+/* Table Container */
+.table-container {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+}
+
+/* Search Box */
+.search-box {
+  max-width: 300px;
+}
+
+/* Action Buttons */
+.btn-action {
+  padding: 5px 10px;
+  margin: 0 2px;
+  transition: all 0.2s;
+}
+
+.btn-action:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* Table Styles */
+.table th {
+  font-weight: 600;
+  background-color: #f8f9fa;
+}
+
+.table td {
+  vertical-align: middle;
+}
+
+/* Badge Styles */
+.badge {
+  padding: 8px 12px;
+  font-weight: 500;
+}
+
+/* Pagination Styles */
+.pagination .page-link {
+  padding: 8px 16px;
+  color: #0d6efd;
+  transition: all 0.2s;
+}
+
+.pagination .page-link:hover {
+  background-color: #0d6efd;
+  color: white;
+}
+
+.pagination .active .page-link {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+}
+
+/* Modal Styles */
+.modal-content {
+  border-radius: 10px;
+  border: none;
+}
+
+.modal-header {
+  background-color: #f8f9fa;
+  border-radius: 10px 10px 0 0;
+}
+
+/* Alert Styles */
+.alert {
+  border-radius: 8px;
+  border: none;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Form Styles */
+.form-control, .form-select {
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #dee2e6;
+  transition: all 0.3s;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+.form-label {
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+/* Card Styles */
+.card {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.card-header {
+  padding: 1rem 1.5rem;
+}
+
+/* Button Styles */
+.btn {
+  padding: 0.5rem 1.5rem;
+  border-radius: 8px;
+  transition: all 0.3s;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.btn-primary {
+  background-color: #0d6efd;
+  border: none;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  border: none;
+}
